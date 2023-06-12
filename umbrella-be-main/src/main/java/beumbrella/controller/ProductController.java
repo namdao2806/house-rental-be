@@ -64,7 +64,10 @@ public class ProductController {
     public ResponseEntity<Iterable<Product>> findProductByCategories(@PathVariable Long id) {
         return new ResponseEntity<>(productService.findProductByCate(id), HttpStatus.OK);
     }
-
+    @GetMapping("/find-products-by-address/{string}")
+    public ResponseEntity<Iterable<Product>> findProductByAddress(@PathVariable String address) {
+        return new ResponseEntity<>(productService.findProductByAddress(address), HttpStatus.OK);
+    }
 
     @GetMapping("/find-products-by-name")
     public ResponseEntity<Iterable<Product>> findAllByNameContaining(@RequestParam String name) {

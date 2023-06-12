@@ -18,7 +18,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value = "select * from products join category c on products.category_id = c.id where c.id = :id", nativeQuery = true)
     Iterable<Product> findProductByCategory(@Param("id") Long id);
-
+    @Query(value = "select * from products where address like :address", nativeQuery = true)
+    Iterable<Product> findProductByAddress(String address);
 
     Iterable<Product> findAllByNameContaining(String name);
 
