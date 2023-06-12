@@ -14,7 +14,7 @@ public interface ProductService extends GeneralService<Product> {
 
 //    Iterable<Product> find(String name,String description, Integer from, Integer to, Long userId);
     Iterable<Product> find(String name,String address,String description, Integer from, Integer to);
-
+    Iterable<Product> findbyquantity(Integer quantity);
     Iterable<Product> findProductByCate(long id);
     Iterable<Product> findProductByAddress(String address);
 

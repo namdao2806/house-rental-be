@@ -81,6 +81,9 @@ public class ProductServiceImpl implements ProductService {
     public Iterable<Product> find(String name,String address, String description, Integer from, Integer to) {
         return productRepository.find(name,address,description, from, to);
     }
-
+    @Override
+    public Iterable<Product> findbyquantity(Integer quantity) {
+        return productRepository.findbyquantity(quantity);
+    }
 
 }

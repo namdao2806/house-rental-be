@@ -23,7 +23,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Iterable<Product> findAllByNameContaining(String name);
 
-    @Query(value = "select * from products p join user_table ut on p.user_id = ut.id where p.user_id != :id", nativeQuery = true)
+    @Query(value = "select * from products p join user_table ut on p.user_id = ut.id where p.user_id != :id and p.quantity = 1", nativeQuery = true)
     Iterable<Product> findAllByUserIdNot(@Param("id") Long id);
 
 //    @Query(value = "select * from products p  where(:name is null or p.name like :name ) and (:description is null or p.description like :description) and (:from is null or p.price >=:from) and(:to is null or p.price<=:to) and p.user_id != :userId", nativeQuery = true)
@@ -39,6 +39,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
                            @Param("from") Integer from,
                            @Param("to") Integer to
                            );
+    @Query(value = "select * from products p  where(:quantity is null or p.quantity like :quantity )", nativeQuery = true)
+    Iterable<Product> findbyquantity(@Param("quantity") Integer quantity
+    );
     @Query(value = "select * from products where user_id = :id", nativeQuery = true)
     Iterable<Product> findProductByUserId(@Param("id") Long id);
 
@@ -48,13 +51,15 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 //    Iterable<Product> findProductByCategoryAndUserIdNot(@Param("categoryId") Long categoryId, @Param("userId") Long userId);
     @Query(value = "select * from products p join user_table ut on p.user_id = ut.id\n" +
             "join category c on p.category_id = c.id\n" +
-            "where c.id = :categoryId and ut.id != :userId", nativeQuery = true)
+            "where c.id = :categoryId and ut.id != :userId and p.quantity = 1", nativeQuery = true)
     Iterable<Product> findProductByCategoryAndUserIdNot(@Param("categoryId") Long categoryId, @Param("userId") Long userId);
     @Query(value = "select *\n" +
             "from products p\n" +
             "         join user_table ut on p.user_id = ut.id\n" +
             "where p.user_id = :customerId\n" +
-            "  and ut.id != :userId", nativeQuery = true)
+            "  and ut.id != :userId\n"+
+            " and p.quantity = 1"
+            , nativeQuery = true)
     Iterable<Product> findProductsByCustomerId(@Param("customerId") Long customerId, @Param("userId") Long userId);}
 
 

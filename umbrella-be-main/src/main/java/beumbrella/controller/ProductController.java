@@ -84,6 +84,10 @@ public class ProductController {
     public ResponseEntity<Iterable<Product>> find(@RequestParam String name,@RequestParam String address, @RequestParam String description, @RequestParam Integer from, @RequestParam Integer to) {
         return new ResponseEntity<>(productService.find('%' + name + '%','%' + address + '%', '%'+ description + '%', from, to), HttpStatus.OK);
     }
+    @GetMapping("/find-products-by-quantity")
+    public ResponseEntity<Iterable<Product>> findbyquantity( @RequestParam Integer quantity) {
+        return new ResponseEntity<>(productService.findbyquantity(quantity), HttpStatus.OK);
+    }
     @GetMapping("/find-my-shop/{id}")
     public ResponseEntity<Iterable<Product>> findProductByUserId(@PathVariable Long id){
         return new ResponseEntity<>(productService.findProductByUserId(id),HttpStatus.OK);
